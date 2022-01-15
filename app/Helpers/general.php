@@ -210,7 +210,7 @@ if (!function_exists('get_option')) {
         $value = Cache::get($name);
 
         if ($value == "") {
-            $setting = DB::table('settings')->where('name', $name)->get();
+            //$setting = DB::table('settings')->where('name', $name)->get();
             if (!$setting->isEmpty()) {
                 $value = $setting[0]->value;
                 Cache::put($name, $value);
