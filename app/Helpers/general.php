@@ -205,23 +205,23 @@ if (!function_exists('sql_escape')) {
     }
 }
 
-// if (!function_exists('get_option')) {
-//     function get_option($name, $optional = '') {
-//         $value = Cache::get($name);
+if (!function_exists('get_option')) {
+    function get_option($name, $optional = '') {
+        $value = Cache::get($name);
 
-//         if ($value == "") {
-//             $setting = DB::table('settings')->where('name', $name)->get();
-//             if (!$setting->isEmpty()) {
-//                 $value = $setting[0]->value;
-//                 Cache::put($name, $value);
-//             } else {
-//                 $value = $optional;
-//             }
-//         }
-//         return $value;
+        if ($value == "") {
+            $setting = DB::table('settings')->where('name', $name)->get();
+            if (!$setting->isEmpty()) {
+                $value = $setting[0]->value;
+                Cache::put($name, $value);
+            } else {
+                $value = $optional;
+            }
+        }
+        return $value;
 
-//     }
-// }
+    }
+}
 
 if (!function_exists('get_setting')) {
     function get_setting($settings, $name, $optional = '') {
