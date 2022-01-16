@@ -42,7 +42,7 @@ class DashboardController extends Controller {
                 ->orderBy('id', 'desc')
                 ->get();
 
-            $data['account_balance'] = DB::select("SELECT currency.*, (SELECT IFNULL(SUM(amount), 0) FROM transactions
+            $data['account_balance'] = DB::select("SELECT currency.*, (SELECT IF(SUM(amount), 0) FROM transactions
             WHERE dr_cr = 'cr' AND currency_id = currency.id AND transactions.user_id = " . $user->id . ") - (SELECT IF(SUM(amount),0)
             FROM transactions WHERE dr_cr = 'dr' AND currency_id = currency.id AND transactions.user_id = " . $user->id . ") as balance
             FROM currency LEFT JOIN transactions ON currency.id=transactions.currency_id WHERE currency.status=1 GROUP BY currency.id");
