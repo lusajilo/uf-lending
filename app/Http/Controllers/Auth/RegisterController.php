@@ -57,21 +57,10 @@ class RegisterController extends Controller {
             'country_code'         => ['required'],
             'phone'                => ['required', 'string', 'unique:users'],
             'password'             => ['required', 'string', 'min:6', 'confirmed'],
-        
-
-         'g-recaptcha-response'=> function($attribute,$value,$fail){
-              $secretkey = config('services.recaptcha.secret');
-              $response = $value;
-              $userIP = $_SERVER['REMOTE_ADDR'];
-              $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secretkey&response=$response&remoteip=$userIP";
-              $response =\file_get_contents($url);
-              $response = json_decode($response);
-
-              if(!$response ->success){
-                // Toastr::success('google recaptcha Failed!');
-                $fail($attribute.'  Please Check ReCaptcha');
-              }
-
+            'g-recaptcha-response' => get_option('enable_recaptcha', 0) == 1 ? 'required|recaptchav3:register,0.5' : '',
+        ], [
+            'g-recaptcha-response.recaptchav3' => _lang('Recaptcha error!'),
+        ]);
     }
 
     /**
