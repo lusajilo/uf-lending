@@ -825,8 +825,8 @@ if (!function_exists('get_account_balance')) {
             $user_id = Auth::user()->id;
         }
 
-        $result = DB::select("SELECT ((SELECT IFNULL(SUM(amount),0) FROM transactions WHERE dr_cr = 'cr'
-	   AND user_id = $user_id AND currency_id = $currency_id AND status=2) - (SELECT IFNULL(SUM(amount),0) FROM transactions
+        $result = DB::select("SELECT ((SELECT COALESCE(SUM(amount),0) FROM transactions WHERE dr_cr = 'cr'
+	   AND user_id = $user_id AND currency_id = $currency_id AND status=2) - (SELECT COALESCE(SUM(amount),0) FROM transactions
 	   WHERE dr_cr = 'dr' AND user_id = $user_id AND currency_id = $currency_id AND status != 0)) as balance");
         return $result[0]->balance;
 
