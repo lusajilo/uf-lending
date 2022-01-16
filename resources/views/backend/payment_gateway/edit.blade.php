@@ -40,7 +40,7 @@
 							<div class="form-group">
 								<label class="control-label">{{ _lang('Currency') }}</label>
 								<select class="form-control auto-select select2" data-selected="{{ $paymentgateway->currency }}" id="gateway_currency" name="currency">
-									<option value="">{{ _lang('Select One') }}</option>
+									<option value="">{{_lang('Select One') }}</option>
 									@foreach($paymentgateway->supported_currencies as $key => $value)
 										<option value="{{ $key }}">{{ $value }}</option>
 									@endforeach
