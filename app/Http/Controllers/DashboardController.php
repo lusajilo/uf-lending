@@ -45,7 +45,7 @@ class DashboardController extends Controller {
             $data['account_balance'] = DB::select("SELECT currency.*, (SELECT COALESCE(SUM(amount), 0) FROM transactions
             WHERE dr_cr = 'cr' AND currency_id = currency.id AND transactions.user_id = " . $user->id . ") - (SELECT COALESCE(SUM(amount),0)
             FROM transactions WHERE dr_cr = 'dr' AND currency_id = currency.id AND transactions.user_id = " . $user->id . ") as balance
-            FROM currency LEFT JOIN transactions ON currency.id=transactions.currency_id WHERE currency.status=1 GROUP BY currency.id");
+            FROM currency LEFT JOIN transactions ON currency.id=transactions.currency_id WHERE currency.status=1 GROUP BY currency.id,currency.name");
         } else {
             $data['active_customer']     = User::where('user_type', 'customer')->where('status', 1)->count();
             $data['inactive_customer']   = User::where('user_type', 'customer')->where('status', 0)->count();
