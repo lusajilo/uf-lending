@@ -24,6 +24,7 @@ Route::middleware(['install'])->group(function () use ($email_verification, $all
     ]);
 
     Route::get('/logout', 'Auth\LoginController@logout');
+    Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
 
     Route::group(['middleware' => $email_verification == 'enabled' ? ['auth', 'verified'] : ['auth']], function () {
 

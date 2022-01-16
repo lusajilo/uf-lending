@@ -105,7 +105,7 @@ class PaymentGatewayController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, $id) {
-        $paymentgateway = PaymentGateway::find($id);
+        $paymentgateway = PaymentGateway::findAll($id);
         if (!$request->ajax()) {
             return view('backend.payment_gateway.edit', compact('paymentgateway', 'id'));
         } else {
